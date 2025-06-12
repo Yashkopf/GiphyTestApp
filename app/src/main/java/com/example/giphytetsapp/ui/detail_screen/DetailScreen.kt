@@ -59,20 +59,5 @@ fun DetailScreen(
             contentDescription = null
         )
     }
-//
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize(),
-//        contentAlignment = Alignment.Center
-//    ) {
-//        if (uiState.isLoading){
-//            CircularProgressIndicator()
-//        } else if (uiState.error != null){
-//            Text(
-//                text = uiState.error,
-//                color = MaterialTheme.colorScheme.error
-//            )
-//        }
-//    }
 }
 
