@@ -1,4 +1,4 @@
-package com.example.giphytetsapp.data.di
+package com.example.giphytetsapp.di
 
 import com.example.giphytetsapp.data.repository.GiphyRepositoryImpl
 import com.example.giphytetsapp.domain.repository.GiphyRepository

@@ -3,12 +3,8 @@ package com.example.giphytetsapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.giphytetsapp.data.mappers.toData
 import com.example.giphytetsapp.data.network.api.GiphyApi
 import com.example.giphytetsapp.data.paging.GiphyPagingSource
-import com.example.giphytetsapp.data.utils.safeApiCall
-import com.example.giphytetsapp.domain.model.giphy_item.Data
-import com.example.giphytetsapp.domain.model.giphy_item.Giphy
 import com.example.giphytetsapp.domain.model.giphy_list.GiphyItemList
 import com.example.giphytetsapp.domain.repository.GiphyRepository
 import kotlinx.coroutines.flow.Flow
@@ -28,11 +24,5 @@ class GiphyRepositoryImpl @Inject constructor(
                 GiphyPagingSource(api)
             }
         ).flow
-    }
-
-    override suspend fun getGiphyItem(imageId: String): Result<Data?> {
-        return safeApiCall {
-            Result.success(api.getGiphyItem(imageId).body()?.data?.toData() )
-        }
     }
 }

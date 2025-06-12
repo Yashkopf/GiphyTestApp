@@ -1,11 +1,15 @@
-package com.example.giphytetsapp.data.di
+package com.example.giphytetsapp.di
 
+import android.app.Application
+import android.content.Context
 import com.example.giphytetsapp.BuildConfig
+import com.example.giphytetsapp.data.network.ConnectivityManager
 import com.example.giphytetsapp.data.network.ResponseInterceptor
 import com.example.giphytetsapp.data.network.api.GiphyApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,7 +24,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideResponseInterceptor(): ResponseInterceptor{
+    fun connectivityManager(@ApplicationContext context: Context): ConnectivityManager {
+        return ConnectivityManager(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideResponseInterceptor(): ResponseInterceptor {
         return ResponseInterceptor()
     }
 

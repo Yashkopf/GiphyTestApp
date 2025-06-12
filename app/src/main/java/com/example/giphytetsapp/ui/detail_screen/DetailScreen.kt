@@ -26,13 +26,8 @@ import com.example.giphytetsapp.R
 
 @Composable
 fun DetailScreen(
-    uiState: DetailScreenState,
-    onGetScreenArgs: () -> Unit,
+    image: String?,
 ) {
-
-    LaunchedEffect(Unit) {
-        onGetScreenArgs()
-    }
 
     Box(
         modifier = Modifier
@@ -55,29 +50,29 @@ fun DetailScreen(
                 .fillMaxSize(),
             painter = rememberAsyncImagePainter(
                 ImageRequest.Builder(LocalContext.current)
-                    .data(uiState.giphyItem?.images?.original?.url)
+                    .data(image)
                     .crossfade(true)
                     .build(),
                 imageLoader = imageLoader,
                 contentScale = ContentScale.Fit,
             ),
-            contentDescription = "Gif image"
+            contentDescription = null
         )
     }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        if (uiState.isLoading){
-            CircularProgressIndicator()
-        } else if (uiState.error != null){
-            Text(
-                text = uiState.error,
-                color = MaterialTheme.colorScheme.error
-            )
-        }
-    }
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize(),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        if (uiState.isLoading){
+//            CircularProgressIndicator()
+//        } else if (uiState.error != null){
+//            Text(
+//                text = uiState.error,
+//                color = MaterialTheme.colorScheme.error
+//            )
+//        }
+//    }
 }
 
