@@ -59,7 +59,6 @@ class ConnectivityManager @Inject constructor(context: Context) {
         get() {
             val activeNetwork = connectivityManager.activeNetwork
             return if (activeNetwork == null) {
-                Log.e("gere", "isConnected IF")
                 false
             } else {
                 val netCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)

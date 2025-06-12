@@ -16,13 +16,17 @@ class GiphyRepositoryImpl @Inject constructor(
     override fun getGiphyList(): Flow<PagingData<GiphyItemList>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,
-                maxSize = 25,
+                pageSize = PAGE_SIZE,
+                maxSize = MAX_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
                 GiphyPagingSource(api)
             }
         ).flow
+    }
+    companion object {
+        const val PAGE_SIZE = 5
+        const val MAX_PAGE_SIZE = 25
     }
 }
