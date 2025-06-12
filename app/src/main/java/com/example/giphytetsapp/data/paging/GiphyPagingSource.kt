@@ -2,22 +2,22 @@ package com.example.giphytetsapp.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.giphytetsapp.data.api.GiphyApi
-import com.example.giphytetsapp.data.mappers.toGiphyItem
-import com.example.giphytetsapp.domain.model.GiphyItem
+import com.example.giphytetsapp.data.network.api.GiphyApi
+import com.example.giphytetsapp.data.mappers.toGiphyItemList
+import com.example.giphytetsapp.domain.model.giphy_list.GiphyItemList
 import retrofit2.HttpException
 
 class GiphyPagingSource(
     private val giphyApi: GiphyApi
-) : PagingSource<Int, GiphyItem>() {
+) : PagingSource<Int, GiphyItemList>() {
 
-    override fun getRefreshKey(state: PagingState<Int, GiphyItem>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, GiphyItemList>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
         return anchorPage.prevKey?.plus(1) ?: anchorPage.nextKey?.minus(1)
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GiphyItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GiphyItemList> {
 
         try {
             val pageNumber = params.key ?: INITIAL_PAGE_NUMBER
@@ -25,7 +25,7 @@ class GiphyPagingSource(
                 giphyApi.getGiphyList()
 
             if (response.isSuccessful) {
-                val result = checkNotNull(response.body()?.data).map { it.toGiphyItem() }
+                val result = checkNotNull(response.body()?.data).map { it.toGiphyItemList() }
                 val prevKey = if (pageNumber > 1) pageNumber - 1 else null
                 val nextKey = if (result.isEmpty()) null else pageNumber + 1
 

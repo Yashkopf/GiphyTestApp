@@ -1,7 +1,9 @@
 package com.example.giphytetsapp.data.di
 
-import com.example.giphytetsapp.domain.usecases.GetGiphyListUseCase
-import com.example.giphytetsapp.domain.usecases.GetGiphyListUseCaseImpl
+import com.example.giphytetsapp.domain.usecases.giphy_item.GetGiphyItemUseCase
+import com.example.giphytetsapp.domain.usecases.giphy_item.GetGiphyItemUseCaseImpl
+import com.example.giphytetsapp.domain.usecases.giphy_list.GetGiphyListUseCase
+import com.example.giphytetsapp.domain.usecases.giphy_list.GetGiphyListUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +14,8 @@ import dagger.hilt.components.SingletonComponent
 abstract class UseCaseModule {
 
     @Binds
-    abstract fun provideGiphyListUseCase(giphyListUseCaseImpl: GetGiphyListUseCaseImpl): GetGiphyListUseCase
+    abstract fun bindGiphyListUseCase(giphyListUseCaseImpl: GetGiphyListUseCaseImpl): GetGiphyListUseCase
+
+    @Binds
+    abstract fun bindGiphyItemUseCase(giphyItemUseCaseImpl: GetGiphyItemUseCaseImpl): GetGiphyItemUseCase
 }

@@ -1,7 +1,8 @@
 package com.example.giphytetsapp.data.di
 
 import com.example.giphytetsapp.BuildConfig
-import com.example.giphytetsapp.data.api.GiphyApi
+import com.example.giphytetsapp.data.network.ResponseInterceptor
+import com.example.giphytetsapp.data.network.api.GiphyApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,12 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideResponseInterceptor(): ResponseInterceptor{
+        return ResponseInterceptor()
+    }
+
+    @Singleton
+    @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -32,6 +39,7 @@ object AppModule {
             .readTimeout(45L, TimeUnit.SECONDS)
             .connectTimeout(45L, TimeUnit.SECONDS)
             .writeTimeout(45L, TimeUnit.SECONDS)
+            .addInterceptor(provideResponseInterceptor())
             .addInterceptor(provideHttpLoggingInterceptor())
             .build()
     }
