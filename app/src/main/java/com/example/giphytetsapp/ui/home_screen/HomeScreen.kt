@@ -103,8 +103,8 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 items(listGiphyItems.itemCount) { index ->
-                    GiphyItem(
-                        image = listGiphyItems[index]?.images?.fixedWidth?.url,
+                    GiphyImage (
+                        image = listGiphyItems[index]?.images?.fixedWidth?.url ?: "",
                         onItemClick = {
                             onClickListingItem(it)
                         }
@@ -116,27 +116,11 @@ fun HomeScreen(
 }
 
 @Composable
-fun GiphyItem(
+fun GiphyImage(
     modifier: Modifier = Modifier,
-    image: String?,
+    image: String,
     onItemClick: (String) -> Unit,
 ) {
-    if (image == null) return
-    Box(
-        modifier = Modifier
-            .then(modifier)
-            .height(200.dp)
-            .fillMaxWidth()
-            .clickable {
-                onItemClick(image)
-            }
-    ) {
-        GiphyImage(image = image)
-    }
-}
-
-@Composable
-fun GiphyImage(modifier: Modifier = Modifier, image: String) {
     val context = LocalContext.current
     val imageLoader = ImageLoader.Builder(context)
         .components {
@@ -150,7 +134,11 @@ fun GiphyImage(modifier: Modifier = Modifier, image: String) {
     Image(
         modifier = Modifier
             .then(modifier)
-            .fillMaxSize(),
+            .fillMaxWidth()
+            .height(200.dp)
+            .clickable {
+                onItemClick(image)
+            },
         painter = rememberAsyncImagePainter(
             ImageRequest.Builder(context)
                 .data(image)
