@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">GiphyTetsApp</string>
+    <string name="app_name">GiphyTestApp</string>
     <string name="wrong_connection">Something went wrong</string>
 </resources>

@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GiphyTetsApp"
+rootProject.name = "GiphyTestApp"
 include(":app")
  
